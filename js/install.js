@@ -63,3 +63,9 @@ function setServiceWorker(){
     }
 
 }
+
+function installedApp(){
+   $( "#install" ).remove();   
+   $( "#chromemessage" ).remove();
+   $( "#installed" ).show();
+}
