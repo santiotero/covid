@@ -34,6 +34,8 @@ function setListeners(){
 
   const buttonAdd = document.getElementById('install');
   
+  if(buttonAdd != null){
+
   buttonAdd.addEventListener('click', (e) => {
 
     deferredPrompt.prompt();
@@ -46,6 +48,8 @@ function setListeners(){
           deferredPrompt = null;
       });
     });
+  
+  }
 
     window.addEventListener('appinstalled', (evt) => {
       alert('instalada installed');
