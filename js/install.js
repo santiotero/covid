@@ -36,18 +36,18 @@ function setListeners(){
   
   if(buttonAdd != null){
 
-  buttonAdd.addEventListener('click', (e) => {
+    buttonAdd.addEventListener('click', (e) => {
 
-    deferredPrompt.prompt();
-       
-    deferredPrompt.userChoice
-      .then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {                  
-             alert('instalada choice');
-          }
-          deferredPrompt = null;
+      deferredPrompt.prompt();
+         
+      deferredPrompt.userChoice
+        .then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {                  
+               alert('instalada choice');
+            }
+            deferredPrompt = null;
+        });
       });
-    });
   
   }
 
