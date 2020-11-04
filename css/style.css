@@ -7,7 +7,11 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
 
-    
+
+}
+
+.grid {
+    padding-top: 4.5rem;
 }
 
 .column {
