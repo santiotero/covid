@@ -39,5 +39,5 @@
     }
   ],
   "scope": "/covid/",
-  "start_url": "app.html?source=pwa" 
+  "start_url": "app.html?source=pwa"
 }
