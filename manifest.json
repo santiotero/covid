@@ -38,6 +38,6 @@
       "sizes": "512x512"
     }
   ],
-  "scope": "/",
+  "scope": "/covid/",
   "start_url": "app.html?source=pwa"
 }
