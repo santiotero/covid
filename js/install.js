@@ -17,7 +17,7 @@ function initialView(){
     let device  = d.device.type;
     let agent   = navigator.userAgent;
     
-    if( agent.indexOf('Samsung') > -1 || browser.indexOf('Chrome') < 0 || device != 'Mobile' ){
+    if(agent.indexOf('Samsung') > -1 || browser.indexOf('Chrome') < 0 || device != 'Mobile'){
       $( "#install" ).remove();
     }else{
       $( "#chromemessage" ).remove();
