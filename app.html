@@ -27,14 +27,90 @@
 
       <div class="ui middle aligned center aligned grid" id="registro">
         <div class="column">
-         registro
+            <h1 class="ui teal image header">      
+      <div class="content">
+        Registro
+      </div>
+    </h1>
+    <form class="ui massive form">
+      <div class="ui one field">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="name" placeholder="Nombre">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="last_name" placeholder="Apellido">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="phone icon"></i>
+            <input type="text" name="phone" placeholder="Número de telefono">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+        <div class="ui orange inverted segment">
+          <div class="field">
+            <div class="ui left toggle checkbox">
+              <input type="checkbox" name="gift" tabindex="0" class="hidden">              
+              <label><i class="medkit icon"></i> Activar en caso de estar contagiado de Covid19</label>
+            </div>
+          </div>
+        </div>
+        <div class="ui fluid massive teal submit button">Registrarme</div>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>      
+        <div class="ui message">
+          ¿Tenes usuario? <a href="#">Inicia sesión</a>
+        </div>
         </div>
       </div>
 
 
       <div class="ui middle aligned center aligned grid" id="inicio">
         <div class="column">
-         inicio sesion
+            <h1 class="ui teal image header">
+      <!-- <img src="assets/images/logo.png" class="image"> -->
+      <div class="content">
+        Inicio de sesión
+      </div>
+    </h1>
+    <form class="ui massive form">
+      <div class="ui one field">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="phone icon"></i>
+            <input type="text" name="phone" placeholder="Número de telefono">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+        <div class="ui fluid massive teal submit button">Login</div>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>
+
+    <div class="ui message">
+      ¿Sos nuevo? <a href="#">Registrate</a>
+    </div>
         </div>
       </div>
 
