@@ -2,11 +2,11 @@ var deferredPrompt;
 
 window.onload = function() {
 
-    ///initialView();
+    initialView();
     
     setListeners();
 
-    setServiceWorker();    
+    setServiceWorker();   
 
 }
 
@@ -60,6 +60,6 @@ function setServiceWorker(){
     if(navigator.serviceWorker){
 
        navigator.serviceWorker.register(urlSw);
-    } 
+    }
 
 }
