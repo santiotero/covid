@@ -14,27 +14,18 @@
 <script src="css/semantic/semantic.min.js"></script>
 <body onload="init()">
 
-<div class="ui black segment sticky">
-  
-  <div class="ui middle aligned center aligned grid">
-    <div class="column">
-      <h1 class="ui teal image header">
-            <img src="img/icons/logo-128.png" class="image">      
-              <div class="content">
-                Covid-19
-              </div>
-      </h1>
-    </div>
-  </div>
 
-  <div class="ui buttons">
-    <button class="ui button" onclick="next(1)">1</button>
-    <button class="ui button" onclick="next(2)">2</button>
-    <button class="ui button" onclick="next(3)">3</button>
-    <button class="ui button" onclick="next(4)">4</button>
-    <button class="ui button" onclick="next(5)">5</button>
-  </div>
+<div class="ui top fixed menu">
+    <div class="item">    
+      <img src="img/icons/logo-128.png" class="image">   
+    </div>
+    <a class="item" onclick="next(1)">login</a>
+    <a class="item" onclick="next(2)">registro</a>
+    <a class="item" onclick="next(3)"><i class="icon user">Mis datos</a>
+    <a class="item" onclick="next(4)"><i class="icon users">Contactos</a>
+    <a class="item" onclick="next(5)"><i class="icon ambulance">Contagiados</a>
 </div>
+
 
 <div class="ui black segment" id="registro">
 <div class="ui middle aligned center aligned grid">
@@ -136,33 +127,6 @@
 
 <div class="ui black segment" id="datos">
 
-
-<div class="ui middle aligned center aligned grid">
-      <div class="column">
-
-      <h1 class="ui teal image header">      
-          <div class="content">
-              Fulano Gomez
-          </div>
-      </h1>
-      <br/>
-      <div class="ui massive center three item menu">
-        <a class="active item">
-          <i class="icon user"></i> Mis datos     
-        </a>
-        <a class="item">
-          <i class="icon users"></i> Contactos
-          <div class="floating ui teal label">15</div>
-        </a>
-        <a class="item">
-          <i class="icon ambulance"></i> Contagiados
-          <div class="floating ui red label">2</div>
-        </a>
-      </div>
-
-        </div>    
- </div>
-
  <div class="ui middle aligned center aligned grid">
   <div class="column">    
     <form class="ui massive form">
@@ -218,33 +182,6 @@
 
 
 <div class="ui black segment" id="contactos">
-
-<div class="ui middle aligned center aligned grid">
-	<div class="column">
-
-	<h1 class="ui teal image header">      
-	    <div class="content">
-	        Fulano Gomez
-	    </div>
-	</h1>
-	<br/>
-	<div class="ui massive center three item menu">
-	  <a class="item">
-	    <i class="icon user"></i> Mis datos	    
-	  </a>
-	  <a class="active item">
-	    <i class="icon users"></i> Contactos
-	    <div class="floating ui teal label">5</div>
-	  </a>
-	  <a class="item">
-	    <i class="icon ambulance"></i> Contagiados
-	    <div class="floating ui red label">2</div>
-	  </a>
-	</div>
-
-    </div>    
-</div>
-
 
 
 <div class="ui middle aligned center aligned grid">
@@ -302,33 +239,6 @@
 
 
 <div class="ui black segment" id="contagiados">
-
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-
-  <h1 class="ui teal image header">      
-      <div class="content">
-          Fulano Gomez
-      </div>
-  </h1>
-  <br/>
-  <div class="ui massive center three item menu">
-    <a class="item">
-      <i class="icon user"></i> Mis datos     
-    </a>
-    <a class="item">
-      <i class="icon users"></i> Contactos
-      <div class="floating ui teal label">15</div>
-    </a>
-    <a class="active item">
-      <i class="icon ambulance"></i> Contagiados
-      <div class="floating ui red label">2</div>
-    </a>
-  </div>
-
-    </div>    
-</div>
-
 
 
 <div class="ui middle aligned center aligned grid">
