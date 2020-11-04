@@ -3,7 +3,7 @@
   "name": "Covid19 App",    
   "description": "Cuidate mejor del Covid-19",
   "background_color": "#ffffff",
-  "theme_color": "#00b5ad",
+  "theme_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
   "icons": [
