@@ -43,7 +43,7 @@ function setListeners(){
       deferredPrompt.userChoice
         .then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {                  
-               alert('instalada choice');
+               installedApp();
             }
             deferredPrompt = null;
         });
@@ -52,7 +52,7 @@ function setListeners(){
   }
 
     window.addEventListener('appinstalled', (evt) => {
-      alert('instalada installed');
+      installedApp();
     });
 
 }
@@ -69,7 +69,7 @@ function setServiceWorker(){
 }
 
 function installedApp(){
-   $( "#install" ).remove();   
-   $( "#chromemessage" ).remove();
-   $( "#installed" ).show();
+   $("#install").remove();   
+   $("#chromemessage").remove();
+   $("#installed").show();
 }
