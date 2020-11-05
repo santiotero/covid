@@ -60,9 +60,9 @@ function setListeners(){
   }
 
     window.addEventListener('appinstalled', (evt) => {
-      setTimeout(function(){
-         installedApp();
-      }, 5000);
+        setTimeout(function(){
+           installedApp();
+        }, 5000);
     });
 
 }
@@ -79,10 +79,10 @@ function setServiceWorker(){
 }
 
 function installedApp(){  
-  $("#install").remove();
-  $("#installing").show();
-  setTimeout(function(){
+   $("#install").remove();
+   $("#installing").show();
+   setTimeout(function(){
             $("#installing").remove();
             $("#installed").show();
-  }, 5000);
+   }, 5000);
 }
