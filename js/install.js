@@ -2,11 +2,9 @@ var deferredPrompt;
 
 window.onload = function() {
 
-    initialView();
-    
+    initialView();    
     setListeners();
-
-    setServiceWorker();   
+    setServiceWorker();
 
 }
 
