@@ -1,4 +1,3 @@
-
 var appUser;
 
 window.onload = function() {
@@ -77,7 +76,6 @@ function validateUser(){
   }else{
     optionMenu(3);
   }
-
 
 }
 
