@@ -1,4 +1,6 @@
 
+var appUser;
+
 window.onload = function() {
 
     init();    
@@ -10,12 +12,13 @@ window.onload = function() {
 function init(){
 
     $('.ui.checkbox').checkbox();
+    optionMenu(0);
 
 }
 
 function setServiceWorker(){
 
-    var urlSw = 'sw.js';
+    let urlSw = 'sw.js';
          
     if(navigator.serviceWorker){
 
@@ -26,6 +29,7 @@ function setServiceWorker(){
   
 function optionMenu(num){
 
+    $('#initloading').hide();
     $('#registro').hide();  
     $('#inicio').hide();
     $('#datos').hide();
@@ -33,6 +37,13 @@ function optionMenu(num){
     $('#contagiados').hide();
 
     switch (num) {
+      case 0:
+        $('#initloading').show();
+        setTimeout(function(){
+          validateUser();  
+        }, 2000);
+        break;
+
       case 1:
         $('#registro').show();
         break;
@@ -56,7 +67,17 @@ function optionMenu(num){
       default:        
         break;
     }
-    
+
+}
+
+function validateUser(){
+
+  if(appUser == {} || appUser == null || !appUser){
+    optionMenu(1);
+  }else{
+    optionMenu(3);
+  }
+
 
 }
 
