@@ -56,11 +56,10 @@ function setListeners(){
             deferredPrompt = null;
         });
       });
-
   }
 
     window.addEventListener('appinstalled', (evt) => {
-        installedApp();
+       installedApp();
     });
 
 }
