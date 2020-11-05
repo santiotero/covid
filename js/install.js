@@ -84,9 +84,3 @@ function installedApp(){
             $( "#installed" ).show();
   }, 5000);
 }
-
-/*function installedApp(){
-   $("#install").remove();   
-   $("#chromemessage").remove();
-   $("#installed").show();
-}*/
