@@ -18,18 +18,22 @@ function initialView(){
     let agent   = navigator.userAgent;
     
     if(agent.indexOf('Samsung') > -1 || browser.indexOf('Chrome') < 0 || device != 'Mobile'){
+      
       $( "#install" ).remove();
       $( "#initloading" ).show();
       setTimeout(function(){
           $( "#initloading" ).remove();
           $( "#chromemessage" ).show();
-      }, 5000);      
+      }, 5000);     
+
     }else{
+
       $( "#chromemessage" ).remove();
       $( "#initloading" ).show();
       setTimeout(function(){ 
           $( "#install" ).show();
       }, 5000);
+
     }
 
 }
