@@ -76,8 +76,17 @@ function setServiceWorker(){
 
 }
 
-function installedApp(){
+function installedApp(){  
+  $("#install").remove();
+  $( "#installing" ).show();
+  setTimeout(function(){
+            $( "#installing" ).remove();
+            $( "#installed" ).show();
+  }, 5000);
+}
+
+/*function installedApp(){
    $("#install").remove();   
    $("#chromemessage").remove();
    $("#installed").show();
-}
+}*/
