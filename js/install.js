@@ -78,9 +78,9 @@ function setServiceWorker(){
 
 function installedApp(){  
   $("#install").remove();
-  $( "#installing" ).show();
+  $("#installing").show();
   setTimeout(function(){
-            $( "#installing" ).remove();
-            $( "#installed" ).show();
+            $("#installing").remove();
+            $("#installed").show();
   }, 5000);
 }
