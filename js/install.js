@@ -51,7 +51,7 @@ function setListeners(){
       deferredPrompt.userChoice
         .then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {                  
-               installedApp();
+               console.log('installed');
             }
             deferredPrompt = null;
         });
@@ -60,7 +60,9 @@ function setListeners(){
   }
 
     window.addEventListener('appinstalled', (evt) => {
-      installedApp();
+      setTimeout(function(){
+         installedApp();
+      }, 5000);
     });
 
 }
