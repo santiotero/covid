@@ -60,9 +60,7 @@ function setListeners(){
   }
 
     window.addEventListener('appinstalled', (evt) => {
-        setTimeout(function(){
-           installedApp();
-        }, 5000);
+        installedApp();
     });
 
 }
