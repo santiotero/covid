@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">    
 <meta name="description" content="Covid19">
-<meta name="theme-color" content="#00b5ad">
+<meta name="theme-color" content="#ffffff">
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Covid19</title>
@@ -13,14 +13,14 @@
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="css/semantic/semantic.min.js"></script>
 
-<body onload="init()">
+<body>
 
 
 <div class="ui top fixed menu">
     <div class="item"><img src="img/icons/logo-128.png"></div>
-    <a class="item" onclick="next(3)">Mis datos</a>
-    <a class="item" onclick="next(4)">Contactos</a>
-    <a class="item" onclick="next(5)">Contagiados</a>
+    <a class="item" onclick="optionMenu(3)">Mis datos</a>
+    <a class="item" onclick="optionMenu(4)">Contactos</a>
+    <a class="item" onclick="optionMenu(5)">Contagiados</a>
 </div>
 
 <div class="container"> 
@@ -227,38 +227,7 @@
 
 
 </div>
+
+<script src="js/app.js"></script>
 </body>
-<script type="text/javascript">
-  function init(){
-
-    $('.ui.checkbox').checkbox();
-
-  }
-  
-  function next(num){
-
-    $('#registro').hide();  
-    $('#inicio').hide();
-    $('#datos').hide();
-    $('#contactos').hide();
-    $('#contagiados').hide();
-
-    if(num == 1){
-      $('#registro').show();
-    }
-    if(num == 2){
-      $('#inicio').show();
-    }
-    if(num == 3){
-      $('#datos').show();
-    }
-    if(num == 4){
-      $('#contactos').show();
-    }
-    if(num == 5){
-      $('#contagiados').show();
-    }
-  }
-
-</script>
 </html>
