@@ -142,7 +142,6 @@ function loadContacts(){
   }else{
     optionMenu(1);
   }
-
 }
 
 function loadCovidContacts(){
@@ -152,7 +151,6 @@ function loadCovidContacts(){
   }else{
     optionMenu(1);
   }
-
 }
 
  
