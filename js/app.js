@@ -42,7 +42,7 @@ function setTriggers(){
 
   $("input[type='number']").on("keydown", function(e){ 
       if(invalidChars.includes(e.key)){
-           e.preventDefault();
+         e.preventDefault();
       }
   });
 
