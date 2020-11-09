@@ -33,15 +33,15 @@ function setTriggers(){
   });
 
   $('.ui.big.basic.button').click(function() {
-    $('.ui.modal').modal('show');
+     $('.ui.modal').modal('show');
   });
 
 }
   
 function optionMenu(num){
 
-    $('.ui.modal').modal('hide');
-    $('.ui.basic.modal').modal('hide');
+    $('.ui.modal').modal('hide'); 
+    $('.ui.basic.modal').modal('hide'); 
     $('#registro').hide();  
     $('#inicio').hide();
     $('#datos').hide();
