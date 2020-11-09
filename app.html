@@ -23,26 +23,18 @@
 </div>
 
 <div class="container"> 
-
-       <div class="ui middle aligned left aligned grid" id="initloading">
-        <div class="column">
-          <div class="ui massive segment">
-            <p></p>
-            <div class="ui active inverted dimmer">
-               <div class="ui text loader">Iniciando...</div>
-            </div>
-            <p></p>
-        </div>
-        </div>       
+       
+      <div class="ui basic modal" id="initloading">
+           <div class="ui text loader">Cargando...</div>                 
       </div>
 
       <div class="ui middle aligned center aligned grid" id="registro">
         <div class="column">
             <h1 class="ui teal image header">      
-      <div class="content">
-        Registro
-      </div>
-    </h1>
+              <div class="content">
+                Registro
+              </div>
+            </h1>
     <form class="ui massive form" id="form_registro">
       <div class="ui one field">
         <div class="field">
@@ -176,6 +168,10 @@
 
       <div class="ui middle aligned left aligned grid" id="contactos">
         <div class="column">
+          <button class="ui big basic button">
+            <i class="icon user"></i>
+            Agregar Contacto
+          </button>
          <div class="ui massive divided list">
             <div class="item">
               <img class="ui avatar image" src="img/avatars/m2.jpg">
@@ -217,6 +213,10 @@
 
       <div class="ui middle aligned left aligned grid" id="contagiados">
         <div class="column">
+          <button class="ui big basic button">
+            <i class="icon user"></i>
+            Agregar Contacto
+          </button>
          <div class="ui massive divided list">          
             <div class="item">
               <img class="ui avatar image" src="img/avatars/m3.jpg">
@@ -235,6 +235,53 @@
          </div>
         </div>       
       </div>
+
+
+
+
+
+
+
+
+     <div class="ui modal">
+          <i class="close icon"></i>
+          <div class="header">
+            Agregar contacto
+          </div>
+          <div class="image content">            
+            <div class="description">              
+              <p>Ingresá el número de teléfono de tu contacto.</p>              
+              <form class="ui massive form">
+              <div class="ui one field">
+                <div class="field">
+                  <div class="ui left icon input">
+                    <i class="phone icon"></i>
+                    <input type="text" name="phone" placeholder="Número de telefono">
+                  </div>
+                </div>                         
+              </div>
+              <div class="ui error message"></div>
+            </form>
+
+            </div>
+          </div>
+          <div class="actions">
+            <div class="ui black deny button">
+              Cancelar
+            </div>
+            <div class="ui positive right labeled icon button">
+              Agregar
+              <i class="checkmark icon"></i>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+        
 
 </div>
 

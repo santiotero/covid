@@ -32,11 +32,16 @@ function setTriggers(){
     createUser();
   });
 
+  $('.ui.big.basic.button').click(function() {
+    $('.ui.modal').modal('show');
+  });
+
 }
   
 function optionMenu(num){
 
-    $('#initloading').hide();
+    $('.ui.modal').modal('hide');
+    $('.ui.basic.modal').modal('hide');
     $('#registro').hide();  
     $('#inicio').hide();
     $('#datos').hide();
@@ -45,7 +50,7 @@ function optionMenu(num){
 
     switch (num) {
       case 0:
-        $('#initloading').show();
+        $('.ui.basic.modal').modal('show');
         setTimeout(function(){
           intialvalidation();  
         }, 2000);
