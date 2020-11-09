@@ -11,6 +11,7 @@ window.onload = function() {
 function init(){
 
     $('.ui.checkbox').checkbox();
+    $('.coupled.modal').modal({allowMultiple: true});
     optionMenu(0);
 
 }
@@ -28,8 +29,21 @@ function setServiceWorker(){
 
 function setTriggers(){
 
+  
   $("#form_registro .submit").click(function() {
     createUser();
+  });
+
+  $('#form_agregar').on('submit', function(e){
+      e.preventDefault();      
+  });
+  
+  let invalidChars = ["-", "e", "+", "E"];
+
+  $("input[type='number']").on("keydown", function(e){ 
+      if(invalidChars.includes(e.key)){
+           e.preventDefault();
+      }
   });
 
   $('.ui.big.basic.button').click(function() {
