@@ -23,12 +23,20 @@
 </div>
 
 <div class="container"> 
-       
-      <div class="ui basic modal" id="initloading">
-           <div class="ui text loader">Cargando...</div>                 
-      </div>
+      
+  <div class="ui middle aligned center aligned grid" id="initloading">
+        <div class="column">
+          <div class="ui massive segment">
+            <p></p>
+            <div class="ui active inverted dimmer">
+               <div class="ui text loader">Cargando...</div>
+            </div>
+            <p></p>
+        </div>
+        </div>       
+  </div>   
 
-      <div class="ui middle aligned center aligned grid" id="registro">
+  <div class="ui middle aligned center aligned grid" id="registro">
         <div class="column">
             <h1 class="ui teal image header">      
               <div class="content">
@@ -138,7 +146,7 @@
               <div class="field">
                 <div class="ui left icon input">
                   <i class="phone icon"></i>
-                  <input type="number" name="phone" placeholder="Número de telefono">
+                  <input type="number" name="phone" readonly placeholder="Número de telefono">
                 </div>
               </div>
               <div class="field">
