@@ -132,7 +132,6 @@ async function intialvalidation(){
   }
 }
 
-
 function loadUser(){
   
   if(user !== undefined){ 
@@ -199,8 +198,6 @@ async function updateUser(){
   }
 
 }
-
-
 
 function loadContacts(covid){
 
