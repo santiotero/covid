@@ -268,11 +268,13 @@ async function fetchUrlGet(base,param){
   h.append('Accept','aplication/json');
   h.append('Content-Type','aplication/json');
   h.append('Access-Control-Allow-Origin','https://arcovid.herokuapp.com');
+  h.append('Access-Control-Allow-Credentials', true);
 
   let req = new Request(url, {
                 method: 'GET',
                 headers: h,
-                mode: 'cors'
+                mode: 'cors',
+                credentials: 'include'
   });
 
   await fetch(req)
