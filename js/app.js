@@ -266,6 +266,7 @@ async function fetchUrlGet(base,param){
   console.log("url",url);
   let h = new Headers();
   h.append('Accept','aplication/json');
+  h.append('Access-Control-Allow-Origin','*');
   let req = new Request(url, {
                 method: 'GET',
                 headers: h,
