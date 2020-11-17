@@ -22,10 +22,9 @@ function setServiceWorker(){
     if(navigator.serviceWorker){
       try{
        navigator.serviceWorker.register(urlSw);
-      }catch(e){}
-      
+      }catch(e){}      
     }    
-
+ 
 }
 
 function setTriggers(){
@@ -280,4 +279,3 @@ async function fetchUrlGet(base,param){
   .then(data => console.log("data",data));
 
 }
-
