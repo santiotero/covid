@@ -165,6 +165,7 @@ async function createUser(){
                 covidDate: covidDate
         });
         user = await db.users.limit(1).first();
+        fetchUrlGet('users',user.phoneNumber);
         optionMenu(0);  
 
     }
@@ -257,5 +258,23 @@ function validateUserData(){
       } 
     
   return vreturn;
+}
+
+async function fetchUrlGet(base,param){
+
+  let url = `https://arcovid.herokuapp.com/v1/${base}/${param}`;
+  console.log("url",url);
+  let h = new Headers();
+  h.append('Accept','aplication/json');
+  let req = new Request(url, {
+                method: 'GET',
+                headers: h,
+                mode: 'cors'
+  });
+
+  await fetch(req)
+  .then(response => response.json())
+  .then(data => console.log(data));
+
 }
 
