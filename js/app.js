@@ -274,7 +274,7 @@ async function fetchUrlGet(base,param){
 
   await fetch(req)
   .then(response => response.json())
-  .then(data => console.log(data));
+  .then(data => console.log("data",data));
 
 }
 
