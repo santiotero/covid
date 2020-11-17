@@ -261,7 +261,7 @@ function validateUserData(){
 
 async function fetchUrlGet(base,param){
 
-  let url = `http://arcovid.herokuapp.com/v1/${base}/${param}`;
+  let url = `https://arcovid.herokuapp.com/v1/${base}/${param}`;
   console.log("url",url);
   
   /*
