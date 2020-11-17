@@ -263,21 +263,7 @@ async function fetchUrlGet(base,param){
 
   let url = `https://arcovid.herokuapp.com/v1/${base}/${param}`;
   console.log("url",url);
-  
-  /*
-  let h = new Headers();
-  h.append('Accept','aplication/json');
-  h.append('Content-Type','aplication/json');
-  h.append('Access-Control-Allow-Origin','https://arcovid.herokuapp.com');
-  h.append('Access-Control-Allow-Credentials', true);
-  
-  let req = new Request(url, {
-                method: 'GET',
-                headers: h,
-                mode: 'cors',
-                credentials: 'include'
-  });
-  */
+
   await fetch(url)
   .then(response => response.json())
   .then(data => console.log("data",data));
