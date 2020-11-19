@@ -55,9 +55,8 @@ function setTriggers(){
   });
   
   $(".ui.positive").on("click", function(e){ 
-     e.preventDefault();
-     console.log("agregando amigo");
-     optionMenu(0);
+     addFriend();
+     e.preventDefault();        
   });
 
 }
@@ -115,6 +114,7 @@ async function intialvalidation(){
 
   db = new Dexie('covid_db');
   db.version(1).stores({users: "phoneNumber,name,lastName,covidDate"});
+  db.version(1).stores({friends: "phoneNumber,name,lastName,covidDate"});
   if (!(await Dexie.exists(db.name))) {    
     optionMenu(1);    
   }else{
@@ -201,7 +201,7 @@ async function updateUser(){
           covidDate: covidDate
         });
       user = await db.users.limit(1).first();
-      optionMenu(0);     
+      optionMenu(0);
   }
 
 }
@@ -210,7 +210,16 @@ function loadContacts(covid){
 
   if(user === undefined){
     optionMenu(1);
+    return false;
   }
+
+  if(!covid){
+    loadFriends();
+  }else{
+    loadInfectedFriends();
+  }
+
+
 
 }
 
@@ -322,3 +331,125 @@ function fetchUrlPost(base,action,param){
   
 }
 
+function addFriend(){
+
+   let phone = $("#form_agregar input[name=phone]").val();
+   
+   fetchUrlGet('users', phone).then(function(friend){
+      
+      if( friend.length > 0 ){
+        
+        let covidDate = new Date();  
+        friend = friend[0];
+        
+        if( friend.userCovidDate != null && friend.userCovidDate !== undefined ){          
+          covidDate = (((friend.userCovidDate).replace(/T/gi, " ")).replace(/Z/gi, "")).substring(0,19);
+        }else{
+          covidDate = null;
+        }
+
+        db.friends.add({
+                phoneNumber: friend.userPhoneNumber,
+                name: friend.userName,
+                lastName: friend.userLastName,
+                covidDate: covidDate
+        })
+        .then( () => loadFriends() );        
+    
+      }else{
+        console.log("no se encontro el contacto");
+      }
+  });
+
+  
+}
+
+function loadFriends(){
+  $("#lista_contactos").html("");
+  db.friends.toArray().then( friends  => {
+    if( friends.length > 0 ){
+      
+      friends.forEach(function(friend){
+        addFriendToList(friend);
+      });   
+
+    }else{
+      $("#lista_contactos").html("No tenes contactos cargados.");
+    }
+  });  
+}
+
+
+function addFriendToList(friend){
+
+  const colors = ['red','green','blue','grey','pink','yellow','black'];
+  const random = Math.floor(Math.random() * colors.length);
+
+  if(friend.covidDate != null && friend.covidDate !== undefined){
+    
+    $("#lista_contactos").append(`
+
+            <a class="item">
+           
+
+              <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
+              ${friend.name} ${friend.lastName} ${friend.covidDate} 
+              
+            </a>
+
+           
+    `);       
+
+  }else{
+    
+    $("#lista_contactos").append(`
+            <a class="item">
+              <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
+             ${friend.name} ${friend.lastName}
+            </a>
+           
+    `);
+
+  }
+
+}
+
+
+function loadInfectedFriends(){
+  $("#lista_contactos_contagiados").html("");
+  db.friends.where('covidDate').notEqual('').toArray().then( friends  => {
+    if( friends.length > 0 ){
+      
+      friends.forEach(function(friend){
+        addFriendToInfectedList(friend);
+      });   
+
+    }else{
+      $("#lista_contactos_contagiados").html("No tenes contactos contagiados.");
+    }
+  });  
+}
+
+function addFriendToInfectedList(friend){
+
+  const colors = ['red','green','blue','grey','pink','yellow','black'];
+  const random = Math.floor(Math.random() * colors.length);
+
+  if(friend.covidDate != null && friend.covidDate !== undefined){
+    
+    $("#lista_contactos_contagiados").append(`
+
+            <a class="item">
+           
+
+              <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
+              ${friend.name} ${friend.lastName} ${friend.covidDate} 
+              
+            </a>
+
+           
+    `);       
+
+  }
+
+}
