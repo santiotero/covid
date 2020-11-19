@@ -7,7 +7,6 @@ window.onload = function() {
     setTriggers();
 }
 
-
 function init(){
 
     $('.ui.checkbox').checkbox();    
