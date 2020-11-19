@@ -148,7 +148,7 @@ function loadUser(){
 
 async function createUser(){
  
-     if(validateNewUserData()){
+     if( await validateNewUserData() ){
         let covidDate = new Date();  
         
         if( $("#form_registro input[name=covid]").prop('checked') ){
@@ -164,7 +164,15 @@ async function createUser(){
                 covidDate: covidDate
         });
         user = await db.users.limit(1).first();
-        fetchUrlGet('users',user.phoneNumber);
+        let userRequest = {
+            "userPhoneNumber": user.phoneNumber,
+            "userName": user.name,
+            "userLastName": user.lastName,
+            "userHealthState": null,
+            "userCovidDate": covidDate
+        };
+
+        fetchUrlPost('users','add',userRequest);      
         optionMenu(0);  
 
     }
@@ -208,29 +216,40 @@ function loadContacts(covid){
 }
 
 function validateNewUserData(){
-      
+           
+
       $('.field').removeClass('error');
       let name      =  $("#form_registro input[name=name]").val();
       let last_name =  $("#form_registro input[name=last_name]").val();
       let phone     =  $("#form_registro input[name=phone]").val();
       let vreturn   =  true;
-      
-      if( name.length <= 2){
-        $("#form_registro input[name=name]").parent().parent().addClass('error');
-        vreturn = false;
-      }
 
-      if(last_name.length <= 2){
-        $("#form_registro input[name=last_name]").parent().parent().addClass('error');
-        vreturn = false;
-      }  
 
-      if(phone.length != 10 ){            
-        $("#form_registro input[name=phone]").parent().parent().addClass('error');        
-        vreturn = false;
-      } 
-    
-  return vreturn;
+      return fetchUrlGet('users', phone).then(function(user){
+        
+        if( name.length <= 2){
+          $("#form_registro input[name=name]").parent().parent().addClass('error');
+          vreturn = false;
+        }
+
+        if(last_name.length <= 2){
+          $("#form_registro input[name=last_name]").parent().parent().addClass('error');
+          vreturn = false;
+        }  
+
+        if(phone.length != 10 ){            
+          $("#form_registro input[name=phone]").parent().parent().addClass('error');        
+          vreturn = false;
+        }
+        
+        if( user.length > 0 ){      
+          $("#form_registro input[name=phone]").parent().parent().addClass('error');        
+          vreturn = false;
+        }
+
+        return vreturn;      
+
+      });
 }
 
 function validateUserData(){
@@ -259,13 +278,48 @@ function validateUserData(){
   return vreturn;
 }
 
-async function fetchUrlGet(base,param){
+function fetchUrlGet(base,param){
 
-  let url = `https://arcovid.herokuapp.com/v1/${base}/${param}`;
-  console.log("url",url);
+  var promesa = new Promise( function(resolve, reject){
 
-  await fetch(url)
-  .then(response => response.json())
-  .then(data => console.log("data",data));
+        let url = `https://arcovid.herokuapp.com/v1/${base}/${param}`;  
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          resolve( (data.length > 0)?data:false );          
+        });        
+  });
 
+  return promesa;
+  
 }
+
+
+function fetchUrlPost(base,action,param){
+
+  var promesa = new Promise( function(resolve, reject){
+
+
+        let result = fetch(`https://arcovid.herokuapp.com/v1/${base}/${action}`,
+                    {
+                          method: 'POST',
+                          mode: 'cors',
+                          cache: 'no-cache',    
+                          headers: {
+                            'Content-Type': 'application/json'      
+                          },
+                          redirect: 'follow',
+                          referrerPolicy: 'no-referrer',
+                          body: JSON.stringify(param)             
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                      resolve( (data.length > 0)?data:false );          
+                    });
+
+  });
+
+  return promesa;
+  
+}
+
