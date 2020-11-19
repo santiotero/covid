@@ -38,7 +38,7 @@ function setTriggers(){
     updateUser();
   });
 
-  $('#form_agregar').on('submit', function(e){
+  $('#form_agregar').on('submit', function(e){      
       e.preventDefault();      
   });
   
@@ -52,7 +52,7 @@ function setTriggers(){
 
   $('.ui.big.basic.button').click(function() {
      $("#form_agregar input[name=phone]").val("");
-     $('.ui.modal').modal('show');
+     $('.ui.modal').modal({autofocus: false}).modal('show');
   });
   
   $(".ui.positive").on("click", function(e){ 
