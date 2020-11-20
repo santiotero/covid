@@ -11,6 +11,7 @@ function init(){
 
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
+    syncFriends();
 
 }
 
@@ -200,7 +201,7 @@ async function updateUser(){
           lastName: $("#form_datos input[name=last_name]").val(),
           covidDate: covidDate
         });
-      user = await db.users.limit(1).first();
+      user = await db.users.limit(1).first().then( user => updateUserRomte(user) );
       optionMenu(0);
   }
 
@@ -389,15 +390,12 @@ function addFriendToList(friend){
     
     $("#lista_contactos").append(`
 
-            <a class="item">
-           
+            <a class="item">           
 
               <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
               ${friend.name} ${friend.lastName} ${friend.covidDate} 
               
-            </a>
-
-           
+            </a>           
     `);       
 
   }else{
@@ -439,8 +437,7 @@ function addFriendToInfectedList(friend){
     
     $("#lista_contactos_contagiados").append(`
 
-            <a class="item">
-           
+            <a class="item">           
 
               <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
               ${friend.name} ${friend.lastName} ${friend.covidDate} 
@@ -451,5 +448,65 @@ function addFriendToInfectedList(friend){
     `);       
 
   }
+
+}
+
+function updateFriendsInfo(){
+  
+  let friendsId = [];
+
+  db.friends.toArray().then( friends  => {
+    if( friends.length > 0 ){
+      
+      friends.forEach(function(friend){
+        friendsId.push(friend.phoneNumber);
+      });
+      fetchUrlPost('users','bulk',friendsId).then(bulk => {
+            
+          if(bulk.length > 0 ){
+              bulk.forEach(function(friend){
+                  
+                  let covidDate = null;  
+                  
+                  if( friend.userCovidDate != null && friend.userCovidDate !== undefined ){          
+                    covidDate = (((friend.userCovidDate).replace(/T/gi, " ")).replace(/Z/gi, "")).substring(0,19);
+                  }
+                  db.friends.put({
+                        phoneNumber: friend.userPhoneNumber,
+                        name: friend.userName,
+                        lastName: friend.userLastName,
+                        covidDate: covidDate
+                  });
+
+
+              });  
+          }
+        
+      }).then( () => syncFriends() ); 
+      
+    }
+  });
+}
+
+function updateUserRomte(user){
+
+  let userRequest = {
+            "userPhoneNumber": user.phoneNumber,
+            "userName": user.name,
+            "userLastName": user.lastName,
+            "userHealthState": null,
+            "userCovidDate": user.covidDate,
+            "userRegistryDate":null
+  };
+
+  fetchUrlPost('users','update',userRequest);
+
+}
+
+
+function syncFriends(){
+  setTimeout(function(){
+      updateFriendsInfo();            
+  }, 2*60*1000 );
 
 }
