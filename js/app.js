@@ -392,7 +392,7 @@ function addFriendToList(friend){
             <a class="item">
               <div class="ui red card">
                 <div class="content">
-                  <a class="ui red right corner label">
+                  <a class="ui red right corner label" onclick="deleteFriend(${friend.phoneNumber})">
                     <i class="trash alternate outline icon"></i>
                   </a>
                   <div class="header">${friend.name} ${friend.lastName}</div>
@@ -410,7 +410,7 @@ function addFriendToList(friend){
             <a class="item">
               <div class="ui grey card">
                 <div class="content">
-                  <a class="ui blue right corner label">
+                  <a class="ui blue right corner label" onclick="deleteFriend(${friend.phoneNumber})">
                     <i class="trash alternate outline icon"></i>
                   </a>
                   <div class="header">${friend.name} ${friend.lastName}</div>                
@@ -450,7 +450,7 @@ function addFriendToInfectedList(friend){
             <a class="item">
               <div class="ui red card">
                 <div class="content">
-                  <a class="ui red right corner label">
+                  <a class="ui red right corner label" onclick="deleteFriend(${friend.phoneNumber})">
                     <i class="trash alternate outline icon"></i>
                   </a>
                   <div class="header">${friend.name} ${friend.lastName}</div>
@@ -523,5 +523,15 @@ function syncFriends(){
   setTimeout(function(){
       updateFriendsInfo();            
   }, 2*60*1000 );
+
+}
+
+function deleteFriend(friendId){
+  console.log("delete", friendId);
+  try{
+    db.friends.delete(friendId.toString()).then( () => loadFriends() );  
+  }catch(e){
+    console.log(e);
+  }
 
 }
