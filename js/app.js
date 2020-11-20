@@ -390,11 +390,9 @@ function addFriendToList(friend){
     
     $("#lista_contactos").append(`
 
-            <a class="item">           
-
+            <a class="item">
               <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
-              ${friend.name} ${friend.lastName} ${friend.covidDate} 
-              
+              ${friend.name} ${friend.lastName} ${friend.covidDate}              
             </a>           
     `);       
 
@@ -437,11 +435,9 @@ function addFriendToInfectedList(friend){
     
     $("#lista_contactos_contagiados").append(`
 
-            <a class="item">           
-
+            <a class="item">
               <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
-              ${friend.name} ${friend.lastName} ${friend.covidDate} 
-              
+              ${friend.name} ${friend.lastName} ${friend.covidDate}              
             </a>
 
            
