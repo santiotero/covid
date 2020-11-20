@@ -373,8 +373,7 @@ function loadFriends(){
       friends.forEach(function(friend){
         addFriendToList(friend);
       });
-      $(".card").css("width", "100%");  
-
+      $(".card").css("width", "100%");
     }else{
       $("#lista_contactos").html("No tenes contactos cargados.");
     }
@@ -429,8 +428,7 @@ function loadInfectedFriends(){
       friends.forEach(function(friend){
         addFriendToInfectedList(friend);
       });
-      $(".card").css("width", "100%");   
-
+      $(".card").css("width", "100%");
     }else{
       $("#lista_contactos_contagiados").html("No tenes contactos contagiados.");
     }
