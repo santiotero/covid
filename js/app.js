@@ -393,6 +393,9 @@ function addFriendToList(friend){
             <a class="item">
               <div class="ui red card">
                 <div class="content">
+                  <a class="ui red right corner label">
+                    <i class="trash alternate outline icon"></i>
+                  </a>
                   <div class="header">${friend.name} ${friend.lastName}</div>
                   <div class="meta">
                     <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
@@ -409,6 +412,9 @@ function addFriendToList(friend){
             <a class="item">
               <div class="ui grey card">
                 <div class="content">
+                  <a class="ui blue right corner label">
+                    <i class="trash alternate outline icon"></i>
+                  </a>
                   <div class="header">${friend.name} ${friend.lastName}</div>                
                 </div>
               </div>
@@ -447,6 +453,9 @@ function addFriendToInfectedList(friend){
             <a class="item">
               <div class="ui red card">
                 <div class="content">
+                  <a class="ui red right corner label">
+                    <i class="trash alternate outline icon"></i>
+                  </a>
                   <div class="header">${friend.name} ${friend.lastName}</div>
                   <div class="meta">
                     <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
