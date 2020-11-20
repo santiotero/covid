@@ -388,8 +388,7 @@ function addFriendToList(friend){
 
   if(friend.covidDate != null && friend.covidDate !== undefined){
     
-    $("#lista_contactos").append(`
-            
+    $("#lista_contactos").append(`            
             <a class="item">
               <div class="ui red card">
                 <div class="content">
@@ -407,8 +406,7 @@ function addFriendToList(friend){
 
   }else{
     
-    $("#lista_contactos").append(`
-            
+    $("#lista_contactos").append(`            
             <a class="item">
               <div class="ui grey card">
                 <div class="content">
@@ -448,8 +446,7 @@ function addFriendToInfectedList(friend){
 
   if(friend.covidDate != null && friend.covidDate !== undefined){
     
-    $("#lista_contactos_contagiados").append(`
-            
+    $("#lista_contactos_contagiados").append(`            
             <a class="item">
               <div class="ui red card">
                 <div class="content">
