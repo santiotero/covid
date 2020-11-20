@@ -389,21 +389,30 @@ function addFriendToList(friend){
   if(friend.covidDate != null && friend.covidDate !== undefined){
     
     $("#lista_contactos").append(`
-
+            
             <a class="item">
-              <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
-              ${friend.name} ${friend.lastName} ${friend.covidDate}              
-            </a>           
-    `);       
+              <div class="ui red card">
+              <div class="content">
+                <div class="header">${friend.name} ${friend.lastName}</div>
+                <div class="meta">
+                  <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
+                </div>
+              </div>
+        </div>
+      </a>          
+    `);        
 
   }else{
     
     $("#lista_contactos").append(`
+            
             <a class="item">
-              <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
-             ${friend.name} ${friend.lastName}
-            </a>
-           
+              <div class="ui grey card">
+              <div class="content">
+                <div class="header">${friend.name} ${friend.lastName}</div>                
+              </div>
+        </div>
+      </a>          
     `);
 
   }
@@ -434,14 +443,18 @@ function addFriendToInfectedList(friend){
   if(friend.covidDate != null && friend.covidDate !== undefined){
     
     $("#lista_contactos_contagiados").append(`
-
+            
             <a class="item">
-              <div class="ui huge ${colors[random]} circular label">${(friend.name.substring(0,1)).toUpperCase()}</div>
-              ${friend.name} ${friend.lastName} ${friend.covidDate}              
-            </a>
-
-           
-    `);       
+              <div class="ui red card">
+              <div class="content">
+                <div class="header">${friend.name} ${friend.lastName}</div>
+                <div class="meta">
+                  <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
+                </div>
+              </div>
+        </div>
+      </a>          
+    `);      
 
   }
 
