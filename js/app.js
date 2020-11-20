@@ -392,14 +392,14 @@ function addFriendToList(friend){
             
             <a class="item">
               <div class="ui red card">
-              <div class="content">
-                <div class="header">${friend.name} ${friend.lastName}</div>
-                <div class="meta">
-                  <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
+                <div class="content">
+                  <div class="header">${friend.name} ${friend.lastName}</div>
+                  <div class="meta">
+                    <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
+                  </div>
                 </div>
               </div>
-        </div>
-      </a>          
+            </a>          
     `);        
 
   }else{
@@ -408,11 +408,11 @@ function addFriendToList(friend){
             
             <a class="item">
               <div class="ui grey card">
-              <div class="content">
-                <div class="header">${friend.name} ${friend.lastName}</div>                
+                <div class="content">
+                  <div class="header">${friend.name} ${friend.lastName}</div>                
+                </div>
               </div>
-        </div>
-      </a>          
+            </a>          
     `);
 
   }
@@ -446,14 +446,14 @@ function addFriendToInfectedList(friend){
             
             <a class="item">
               <div class="ui red card">
-              <div class="content">
-                <div class="header">${friend.name} ${friend.lastName}</div>
-                <div class="meta">
-                  <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
+                <div class="content">
+                  <div class="header">${friend.name} ${friend.lastName}</div>
+                  <div class="meta">
+                    <span class="category"><i class="medkit red icon"></i> ${friend.covidDate}</span>
+                  </div>
                 </div>
               </div>
-        </div>
-      </a>          
+            </a>          
     `);      
 
   }
