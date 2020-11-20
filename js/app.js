@@ -527,11 +527,7 @@ function syncFriends(){
 }
 
 function deleteFriend(friendId){
-  console.log("delete", friendId);
-  try{
-    db.friends.delete(friendId.toString()).then( () => loadFriends() );  
-  }catch(e){
-    console.log(e);
-  }
-
+    
+  db.friends.delete( friendId.toString() ).then( () => loadFriends() );  
+  
 }
