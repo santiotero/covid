@@ -68,7 +68,15 @@ function setTriggers(){
         Notification.requestPermission( function( permission ){
             console.log(permission);
             if( permission === 'granted'){
-              new Notification('Covid app Notification granted :)');
+              
+                const title = 'Covid app';
+                const options = {
+                  body: 'Covid app Notification granted :)',
+                  icon: 'img/logo-16.png'                 
+                };
+                var n = new Notification(title,options);
+                console.log(n);
+                
             }
         });
     }
