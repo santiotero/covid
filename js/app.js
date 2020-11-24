@@ -71,7 +71,6 @@ function setTriggers(){
               new Notification('Covid app Notification granted :)');
             }
         });
-
     }
 
   });
@@ -574,6 +573,5 @@ function validateNotifications(){
     $("#form_datos input[name=covid]").prop('checked', false);    
     return 'default';
   }
-
 
 }
