@@ -5,6 +5,7 @@ window.onload = function() {
     init();    
     setServiceWorker();    
     setTriggers();
+    validateNotifications();
 }
 
 function init(){
@@ -58,6 +59,21 @@ function setTriggers(){
   $(".ui.positive").on("click", function(e){ 
      addFriend();
      e.preventDefault();        
+  });
+
+  $("#form_datos input[name=notification]").change(function(){
+
+    if( !$("#form_datos input[name=covid]").prop('checked') ){
+
+        Notification.requestPermission( function( permission ){
+            console.log(permission);
+            if( permission === 'granted'){
+              new Notification('Covid app Notification granted :)');
+            }
+        });
+
+    }
+
   });
 
 }
@@ -530,4 +546,34 @@ function deleteFriend(friendId){
     
   db.friends.delete( friendId.toString() ).then( () => loadFriends() );  
   
+}
+
+function validateNotifications(){
+
+  if( !window.Notification ){
+    console.log('Notification no soportado');
+    $("#form_datos input[name=notification]").parent().parent().parent().remove();
+    return false;
+  }
+
+  if( Notification.permission === 'denied' ){
+    console.log('Notification denied');
+    $("#form_datos input[name=covid]").prop('checked', false);
+    return 'denied';
+  }
+
+  if( Notification.permission === 'granted' ){
+    console.log('Notification granted');
+    $("#form_datos input[name=covid]").prop('checked', true);
+    new Notification('Covid app Notification incial');
+    return 'granted';
+  }  
+
+  if( Notification.permission === 'default' ){
+    console.log('Notification default');
+    $("#form_datos input[name=covid]").prop('checked', false);    
+    return 'default';
+  }
+
+
 }
