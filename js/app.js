@@ -74,9 +74,9 @@ function setTriggers(){
                   body: 'Covid app Notification granted :)',
                   icon: 'img/logo-16.png'                 
                 };
+
                 var n = new Notification(title,options);
-                console.log(n);
-                
+                console.log(n); //                
             }
         });
     }
