@@ -596,6 +596,7 @@ function showNotification(){
 
   db.infected.where("status").equals(0).count().then( function(count){
     if(count>0){
+      
       let title = 'Covid19 App';
       let options = {
           lang: 'ES',
@@ -609,7 +610,6 @@ function showNotification(){
       Push.create(title,options).then( () => {
         db.infected.where("status").equals(0).modify({status: 1});
       });
-
     }
   });
 
