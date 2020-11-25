@@ -593,9 +593,10 @@ function validateNotifications(){
 }
 
 function sendShowNotification(){
+  
   db.infected.where("status").equals(0).toArray().then( function(infecteds){
     if(infecteds !== undefined && infecteds.length>0){
-      Push.create("Covid19 App", {
+      Push.create("Covid19 App",{
           body: "Hay nuevos contagiados en tus contactos",
           icon: 'img/icons/logo-32.png',
           timeout: 10000
@@ -604,4 +605,5 @@ function sendShowNotification(){
       });
     }
   });
+
 }
