@@ -531,8 +531,8 @@ function updateFriendsInfo(){
           }
         
       }).then( () => { 
-        showNotification(); 
-        syncFriends();
+         showNotification(); 
+         syncFriends();
       }); 
     }else{
       syncFriends();
@@ -596,6 +596,7 @@ function showNotification(){
 
   db.infected.where("status").equals(0).count().then( function(count){
     if(count>0){
+
       Push.create("Covid19 App",{
           body: "Hay nuevos contagiados en tus contactos",
           icon: 'img/icons/logo-32.png',
@@ -603,6 +604,7 @@ function showNotification(){
       }).then( () => {
         db.infected.where("status").equals(0).modify({status: 1});
       });
+
     }
   });
 
