@@ -593,7 +593,6 @@ function validateNotifications(){
 }
 
 function sendShowNotification(){
-
   db.infected.where("status").equals(0).toArray().then( function(infecteds){
     if(infecteds !== undefined && infecteds.length>0){
       Push.create("Covid App", {
@@ -604,6 +603,5 @@ function sendShowNotification(){
         db.infected.where("status").equals(0).modify({status: 1});
       });
     }
-  });  
-
+  });
 }
