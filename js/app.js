@@ -559,7 +559,6 @@ function updateUserRomte(user){
 
 }
 
-
 function syncFriends(){
   setTimeout(function(){
       updateFriendsInfo();            
@@ -611,4 +610,5 @@ function sendShowNotification(){
       });
     }
   });
+  
 }
