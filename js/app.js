@@ -605,8 +605,7 @@ function sendShowNotification(){
               window.focus();
               this.close();
           },
-          silent: false,
-          requireInteraction
+          silent: false          
       }).then( () => {
         db.infected.where("status").equals(0).modify({status: 1});
       });
