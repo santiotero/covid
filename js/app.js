@@ -562,8 +562,7 @@ function updateUserRomte(user){
 function syncFriends(){
   setTimeout(function(){
       updateFriendsInfo();            
-  }, 2*60*1000 );
-
+  }, 60000 );
 }
 
 function deleteFriend(friendId){
@@ -604,7 +603,13 @@ function sendShowNotification(){
       Push.create("Covid App", {
           body: "Hay nuevos contagiados en tus contactos",
           icon: 'img/icons/logo-32.png',
-          timeout: 10000
+          timeout: 60000,
+          onClick: function () {
+              window.focus();
+              this.close();
+          },
+          silent: false,
+          requireInteraction
       }).then( () => {
         db.infected.where("status").equals(0).modify({status: 1});
       });
