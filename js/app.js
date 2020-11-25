@@ -9,7 +9,6 @@ window.onload = function() {
 }
 
 function init(){
-
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
     syncFriends();
@@ -390,8 +389,8 @@ function addFriend(){
 
 function loadFriends(){
   $("#lista_contactos").html("");
-  db.friends.toArray().then( friends  => {
-    if( friends.length > 0 ){
+  db.friends.toArray().then( function(friends){
+    if( friends !== undefined && friends.length > 0 ){
       
       friends.forEach(function(friend){
         addFriendToList(friend);
@@ -449,8 +448,8 @@ function addFriendToList(friend){
 
 function loadInfectedFriends(){
   $("#lista_contactos_contagiados").html("");
-  db.friends.where('covidDate').notEqual('').toArray().then( friends  => {
-    if( friends.length > 0 ){
+  db.friends.where('covidDate').notEqual('').toArray().then( function(friends){
+    if( friends !== undefined && friends.length > 0 ){
       
       friends.forEach(function(friend){
         addFriendToInfectedList(friend);
@@ -490,11 +489,10 @@ function addFriendToInfectedList(friend){
 }
 
 function updateFriendsInfo(){
-  
   let friendsId = [];
 
-  db.friends.toArray().then( friends  => {
-    if( friends.length > 0 ){
+  db.friends.toArray().then( function(friends){
+    if( friends !== undefined && friends.length > 0 ){
       
       friends.forEach(function(friend){
         friendsId.push(friend.phoneNumber);
@@ -516,8 +514,8 @@ function updateFriendsInfo(){
                         covidDate: covidDate
                   }).then( () => {
 
-                    db.infected.where("phoneNumber").equals(friend.userPhoneNumber).limit(1).first().then( infected => {                    
-                      if(infected === undefined || infected.length<=0){
+                    db.infected.where("phoneNumber").equals(friend.userPhoneNumber).limit(1).first().then( function(infected){                    
+                      if((infected !== undefined && infected.length > 0) && covidDate != null){
                           db.infected.put({
                             phoneNumber: friend.userPhoneNumber,
                             name: friend.userName,
@@ -535,8 +533,10 @@ function updateFriendsInfo(){
         
       }).then( () => { 
         sendShowNotification(); 
-        syncFriends()
+        syncFriends();
       }); 
+    }else{
+      syncFriends();
     }
   });
 }
@@ -558,7 +558,7 @@ function updateUserRomte(user){
 
 function syncFriends(){
   setTimeout(function(){
-      updateFriendsInfo();            
+      updateFriendsInfo();             
   }, 60000 );
 }
 
@@ -594,8 +594,8 @@ function validateNotifications(){
 }
 
 function sendShowNotification(){
-  db.infected.where("status").equals(0).toArray().then( infecteds => {
-    if(infecteds.length>0){
+  db.infected.where("status").equals(0).toArray().then( function(infecteds){
+    if(infecteds !== undefined && infecteds.length>0){
       Push.create("Covid App", {
           body: "Hay nuevos contagiados en tus contactos",
           icon: 'img/icons/logo-32.png',
