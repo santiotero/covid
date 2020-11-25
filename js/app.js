@@ -606,13 +606,15 @@ function showNotification(){
           requireInteraction: true
       }
       new Notification(title, options);
-      /*Push.create("Covid19 App",{
+      /*
+      Push.create("Covid19 App",{
           body: "Hay nuevos contagiados en tus contactos",
           icon: 'img/icons/logo-32.png',
           timeout: 10000
       }).then( () => {
         db.infected.where("status").equals(0).modify({status: 1});
-      });*/
+      });
+      */
 
     }
   });
