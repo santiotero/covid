@@ -489,18 +489,18 @@ function addFriendToInfectedList(friend){
 
 function updateFriendsInfo(){
   let friendsId = [];
-
+  
   db.friends.toArray().then( function(friends){
-    if( friends !== undefined && friends.length > 0 ){
-      
+    if( friends !== undefined && friends.length > 0 ){      
       friends.forEach(function(friend){
         friendsId.push(friend.phoneNumber);
       });
+
       fetchUrlPost('users','bulk',friendsId).then(bulk => {
-            
+          
           if(bulk.length > 0 ){
               bulk.forEach(function(friend){
-                  
+                   
                   let covidDate = null;  
                   
                   if( friend.userCovidDate != null && friend.userCovidDate !== undefined ){          
@@ -512,9 +512,9 @@ function updateFriendsInfo(){
                         lastName: friend.userLastName,
                         covidDate: covidDate
                   }).then( () => {
-
-                    db.infected.where("phoneNumber").equals(friend.userPhoneNumber).limit(1).first().then( function(infected){                    
-                      if((infected !== undefined && infected.length > 0) && covidDate != null){
+                       
+                    db.infected.where("phoneNumber").equals(friend.userPhoneNumber).count().then( function(count){                        
+                      if( count <= 0 && covidDate !== null){                          
                           db.infected.put({
                             phoneNumber: friend.userPhoneNumber,
                             name: friend.userName,
@@ -531,7 +531,7 @@ function updateFriendsInfo(){
           }
         
       }).then( () => { 
-        sendShowNotification(); 
+        showNotification(); 
         syncFriends();
       }); 
     }else{
@@ -592,10 +592,10 @@ function validateNotifications(){
 
 }
 
-function sendShowNotification(){
-  
-  db.infected.where("status").equals(0).toArray().then( function(infecteds){
-    if(infecteds !== undefined && infecteds.length>0){
+function showNotification(){
+
+  db.infected.where("status").equals(0).count().then( function(count){
+    if(count>0){
       Push.create("Covid19 App",{
           body: "Hay nuevos contagiados en tus contactos",
           icon: 'img/icons/logo-32.png',
