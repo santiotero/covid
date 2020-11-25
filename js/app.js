@@ -24,12 +24,10 @@ function setServiceWorker(){
       try{
        navigator.serviceWorker.register(urlSw);
       }catch(e){}      
-    }    
- 
+    } 
 }
 
 function setTriggers(){
-
   
   $("#form_registro .submit").click(function() {
     createUser();
@@ -190,8 +188,7 @@ async function createUser(){
         };
 
         fetchUrlPost('users','add',userRequest);      
-        optionMenu(0);  
-
+        optionMenu(0);
     }
 
 }
