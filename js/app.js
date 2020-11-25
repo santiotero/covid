@@ -66,17 +66,10 @@ function setTriggers(){
     if( !$("#form_datos input[name=covid]").prop('checked') ){
 
         Notification.requestPermission( function( permission ){
-            console.log(permission);
             if( permission === 'granted'){
-              
-                const title = 'Covid app';
-                const options = {
-                  body: 'Covid app Notification granted :)',
-                  icon: 'img/logo-16.png'                 
-                };
-
-                var n = new Notification(title,options);
-                console.log(n); //                
+                $("#form_datos input[name=notification]").prop('checked', true);           
+            }else{
+                $("#form_datos input[name=notification]").prop('checked', false);
             }
         });
     }
@@ -139,6 +132,7 @@ async function intialvalidation(){
   db = new Dexie('covid_db');
   db.version(1).stores({users: "phoneNumber,name,lastName,covidDate"});
   db.version(1).stores({friends: "phoneNumber,name,lastName,covidDate"});
+  db.version(1).stores({infected: "phoneNumber,name,lastName,covidDate,status"});
   if (!(await Dexie.exists(db.name))) {    
     optionMenu(1);    
   }else{
@@ -378,14 +372,23 @@ function addFriend(){
                 lastName: friend.userLastName,
                 covidDate: covidDate
         })
-        .then( () => loadFriends() );        
+        .then( () => loadFriends() );
+
+        if(covidDate!== null){
+            db.infected.add({
+                  phoneNumber: friend.userPhoneNumber,
+                  name: friend.userName,
+                  lastName: friend.userLastName,
+                  covidDate: covidDate,
+                  status: 1
+            });
+        }       
     
       }else{
         console.log("no se encontro el contacto");
       }
   });
 
-  
 }
 
 function loadFriends(){
@@ -514,14 +517,29 @@ function updateFriendsInfo(){
                         name: friend.userName,
                         lastName: friend.userLastName,
                         covidDate: covidDate
-                  });
+                  }).then( () => {
 
+                    db.infected.where("phoneNumber").equals(friend.userPhoneNumber).limit(1).first().then( infected => {                    
+                      if(infected === undefined || infected.length<=0){
+                          db.infected.put({
+                            phoneNumber: friend.userPhoneNumber,
+                            name: friend.userName,
+                            lastName: friend.userLastName,
+                            covidDate: covidDate,
+                            status: 0
+                          });
+                      }
+                    });
+
+                  });
 
               });  
           }
         
-      }).then( () => syncFriends() ); 
-      
+      }).then( () => { 
+        sendShowNotification(); 
+        syncFriends()
+      }); 
     }
   });
 }
@@ -550,7 +568,8 @@ function syncFriends(){
 }
 
 function deleteFriend(friendId){
-    
+  
+  db.infected.delete( friendId.toString() );  
   db.friends.delete( friendId.toString() ).then( () => loadFriends() );  
   
 }
@@ -558,28 +577,38 @@ function deleteFriend(friendId){
 function validateNotifications(){
 
   if( !window.Notification ){
-    console.log('Notification no soportado');
     $("#form_datos input[name=notification]").parent().parent().parent().remove();
     return false;
   }
 
   if( Notification.permission === 'denied' ){
-    console.log('Notification denied');
-    $("#form_datos input[name=covid]").prop('checked', false);
+    $("#form_datos input[name=notification]").prop('checked', false);
     return 'denied';
   }
 
   if( Notification.permission === 'granted' ){
-    console.log('Notification granted');
-    $("#form_datos input[name=covid]").prop('checked', true);
-    new Notification('Covid app Notification incial');
+    $("#form_datos input[name=notification]").prop('checked', true);
     return 'granted';
   }  
 
   if( Notification.permission === 'default' ){
-    console.log('Notification default');
-    $("#form_datos input[name=covid]").prop('checked', false);    
+    $("#form_datos input[name=notification]").prop('checked', false);    
     return 'default';
   }
 
+}
+
+function sendShowNotification(){
+
+  db.infected.where("status").equals(0).toArray().then( infecteds => {
+    if(infecteds.length>0){
+      Push.create("Covid App", {
+          body: "Hay nuevos contagiados en tus contactos",
+          icon: 'img/icons/logo-32.png',
+          timeout: 10000
+      }).then( () => {
+        db.infected.where("status").equals(0).modify({status: 1});
+      });
+    }
+  });
 }
