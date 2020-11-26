@@ -1,5 +1,6 @@
 var user;
 var db;
+var currentOption;
 
 window.onload = function() {
     init();    
@@ -9,6 +10,15 @@ window.onload = function() {
 }
 
 function init(){
+
+    const url_string = window.location.href;
+    const urlv = new URL(url_string);    
+    let u = urlv.searchParams.get("source");
+    const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
+    if( !mobMode ){
+      window.location.href = 'error.html';   
+    }
+
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
     syncFriends();
@@ -83,6 +93,7 @@ function optionMenu(num){
     $('#datos').hide();
     $('#contactos').hide();
     $('#contagiados').hide();
+    currentOption = num;
 
     switch (num) {
       case 0:
@@ -522,6 +533,8 @@ function updateFriendsInfo(){
                             covidDate: covidDate,
                             status: 0
                           });
+                      }else if( count > 0 && covidDate === null){
+                          db.infected.delete( (friend.userPhoneNumber).toString() );
                       }
                     });
 
@@ -533,9 +546,10 @@ function updateFriendsInfo(){
       }).then( () => { 
          showNotification(); 
          syncFriends();
+         optionMenu(currentOption);
       }); 
     }else{
-      syncFriends();
+      syncFriends();      
     }
   });
 }
