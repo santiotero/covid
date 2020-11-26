@@ -15,6 +15,7 @@ function init(){
     const urlv = new URL(url_string);    
     let u = urlv.searchParams.get("source");
     const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
+    
     if( !mobMode ){
       window.location.href = 'error.html';   
     }
@@ -22,6 +23,7 @@ function init(){
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
     syncFriends();
+    
 }
 
 function setServiceWorker(){
