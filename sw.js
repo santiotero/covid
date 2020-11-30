@@ -46,8 +46,7 @@ function updateFriends(){
 		  if (cursor) {
 		  	friendsId.push(cursor.key);	    
 		    cursor.continue();
-		  }else{
-		  	console.log("post");
+		  }else{		  	
 		  	response = fetchUrlPost('users','bulk',friendsId).then(bulk => {
 		  		if(bulk.length > 0 ){
 		  		notify = false;
@@ -57,8 +56,7 @@ function updateFriends(){
 		  			}
 		  		});		  			
 		  			if(notify){
-		  			   self.registration.showNotification(title, options);
-		  			   console.log("notificacion");	
+		  			   self.registration.showNotification(title, options);		  			   
 		  			} 
 		  			notify = false;
 		  		}

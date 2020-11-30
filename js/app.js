@@ -16,9 +16,9 @@ function init(){
     let u = urlv.searchParams.get("source");
     const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
     
-    /*if( !mobMode ){
+    if( !mobMode ){
       window.location.href = 'error.html';   
-    }*/
+    }
 
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
