@@ -1,7 +1,7 @@
 var user;
 var db;
 var currentOption;
-
+var registration;
 window.onload = function() {
     init();    
     setServiceWorker();    
@@ -16,9 +16,9 @@ function init(){
     let u = urlv.searchParams.get("source");
     const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
     
-    if( !mobMode ){
+    /*if( !mobMode ){
       window.location.href = 'error.html';   
-    }
+    }*/
 
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
@@ -82,6 +82,10 @@ function setTriggers(){
         });
     }
 
+  });
+
+  $("#form_datos input[name=covid]").change(function(){
+    updateUser();
   });
 
 }
@@ -316,12 +320,17 @@ function fetchUrlGet(base,param){
 
   var promesa = new Promise( function(resolve, reject){
 
-        let url = `https://arcovid.herokuapp.com/v1/${base}/${param}`;  
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          resolve( (data.length > 0)?data:false );          
-        });        
+        try{
+
+          let url = `https://arcovid.herokuapp.com/v1/${base}/${param}`;  
+          fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            resolve( (data.length > 0)?data:false );          
+          }); 
+
+        }catch(e){}     
+  
   });
 
   return promesa;
@@ -333,6 +342,7 @@ function fetchUrlPost(base,action,param){
 
   var promesa = new Promise( function(resolve, reject){
 
+        try{
 
         let result = fetch(`https://arcovid.herokuapp.com/v1/${base}/${action}`,
                     {
@@ -350,6 +360,8 @@ function fetchUrlPost(base,action,param){
                     .then(data => {
                       resolve( (data.length > 0)?data:false );          
                     });
+        
+        }catch(e){}
 
   });
 
