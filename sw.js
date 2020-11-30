@@ -41,7 +41,7 @@ function updateFriends(){
 
 	objectStore.openCursor().onsuccess = function(event) {
 		  var cursor = event.target.result;	  	  	
-		  friendsId
+		  
 		  if (cursor) {
 		  	friendsId.push(cursor.key);	    
 		    cursor.continue();
