@@ -17,7 +17,7 @@ function init(){
     const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
     
     if( !mobMode ){
-      window.location.href = 'error.html';   
+       window.location.href = 'error.html';   
     }
 
     $('.ui.checkbox').checkbox();    
@@ -584,9 +584,11 @@ function updateUserRomte(user){
 }
 
 function syncFriends(){
+
   setTimeout(function(){
       updateFriendsInfo();             
   }, 60000 );
+
 }
 
 function deleteFriend(friendId){
