@@ -8,7 +8,7 @@ var idb;
 var transaction;
 var objectStore;
 var request;
-var friendsId = [];
+var friendsId  = [];		
 var response;
 var title = 'Covid19 App';
 var options = {
@@ -21,54 +21,70 @@ var options = {
 };
 var notify = false;
 
-init();
+function syncFriends(){
+  friendsId = [];
+  setTimeout(function(){  	 	  	  
+      init(updateFriends, fetchUrlPost);                          
+  }, 60000 );
 
-async function init(){
+}
 
-idb = await indexedDB.open('covid_db');
+function init(updateFriends, fetchUrlPost){
+
+	idb = indexedDB.open('covid_db');
 
 	idb.onsuccess = function(event) {
-		db = idb.result;
-		transaction = db.transaction(["friends"]);
-		objectStore = transaction.objectStore("friends");
-		updateFriends();
-	};
+
+			db = idb.result;
+			transaction = db.transaction(["friends"]);
+			objectStore = transaction.objectStore("friends");
+			
+			objectStore.openCursor().onsuccess = function(event) {
+				var cursor = event.target.result;	  	  					
+				if (cursor) {		  
+				  if( cursor.value.covidDate === null ){				  	
+				  	friendsId.push(cursor.key);		  	
+				  }				  
+				  cursor.continue();
+				}else{
+				  
+			      try{
+				   transaction.abort();
+				  }catch(e){}
+				  updateFriends(fetchUrlPost, friendsId);
+
+		  		  syncFriends();
+				}				
+	  		}
+	}
 
 }
 
 
-function updateFriends(){
-
-	objectStore.openCursor().onsuccess = function(event) {
-		  var cursor = event.target.result;	  	  	
-		  friendsId  = [];
-		  if (cursor) {
-		  	friendsId.push(cursor.key);	    
-		    cursor.continue();
-		  }else{		  	
-		  	response = fetchUrlPost('users','bulk',friendsId).then(bulk => {
+const updateFriends = function(fetchUrlPost, friendsId){
+	if(friendsId.length <= 0){		
+		return;
+	}
+	
+	fetchUrlPost('users','bulk',friendsId).then(bulk => {		  		
 		  		if(bulk.length > 0 ){
-		  		notify = false;
-		  		bulk.forEach(function(friend){
-		  			if( friend.userCovidDate != null && friend.userCovidDate !== undefined ){
-		  				notify = true;
-		  			}
-		  		});		  			
-		  			if(notify){
+			  		notify = false;
+			  		bulk.forEach(function(friend){			  			
+			  			if( friend.userCovidDate != null && friend.userCovidDate !== undefined ){
+			  				notify = true;
+			  			}
+		  			});		  			
+		  			if(notify){		  			   
 		  			   self.registration.showNotification(title, options);		  			   
 		  			} 
 		  			notify = false;
-		  		}
-		  	});
-		  }
-
-		  syncFriends();
-  	};
-
+		  		}		  		
+	});
+	
 }
 
 
-function fetchUrlPost(base,action,param){
+const fetchUrlPost = function (base,action,param){
 
   var promesa = new Promise( function(resolve, reject){
 
@@ -99,9 +115,5 @@ function fetchUrlPost(base,action,param){
   
 }
 
-function syncFriends(){
-  setTimeout(function(){
-      init();             
-  }, 60000 );
-}
 
+init(updateFriends, fetchUrlPost);
