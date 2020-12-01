@@ -41,25 +41,22 @@ function init(updateFriends, fetchUrlPost){
 			
 			objectStore.openCursor().onsuccess = function(event) {
 				var cursor = event.target.result;	  	  					
-				if (cursor) {		  
+				if (cursor) {
 				  if( cursor.value.covidDate === null ){				  	
 				  	friendsId.push(cursor.key);		  	
 				  }				  
 				  cursor.continue();
-				}else{
-				  
+				}else{				  
 			      try{
 				   transaction.abort();
 				  }catch(e){}
-				  updateFriends(fetchUrlPost, friendsId);
-
+				 			updateFriends(fetchUrlPost, friendsId);
 		  		  syncFriends();
 				}				
 	  		}
 	}
 
 }
-
 
 const updateFriends = function(fetchUrlPost, friendsId){
 	if(friendsId.length <= 0){		
