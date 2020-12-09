@@ -1,8 +1,3 @@
-
-self.addEventListener("fetch", function(event){
-	console.log("service worker fetch");
-});
-
 var db;
 var idb;
 var transaction;
@@ -10,10 +5,10 @@ var objectStore;
 var request;
 var friendsId  = [];		
 var response;
-var title = 'Covid19 App';
+var title = 'Covid19 App Sw';
 var options = {
           lang: 'ES',
-          body: 'Hay nuevos contactos contagiados',
+          body: 'Hay nuevos contactos contagiados Sw',
           icon: 'img/icons/logo-32.png',
           image: 'img/icons/logo-32.png',
           silent: false,
@@ -21,13 +16,18 @@ var options = {
 };
 var notify = false;
 
-function syncFriends(){
-  friendsId = [];
-  setTimeout(function(){  	 	  	  
-      init(updateFriends, fetchUrlPost);                          
-  }, 60000 );
+self.addEventListener("fetch", function(event){
+	console.log("service worker fetch");
+});
 
-}
+self.addEventListener('sync', function(event) {
+	console.log("syncCovid event", event);
+    if (event.tag === 'syncCovid') {
+        friendsId = [];
+		init(updateFriends, fetchUrlPost);
+    }
+});
+
 
 function init(updateFriends, fetchUrlPost){
 
@@ -50,8 +50,8 @@ function init(updateFriends, fetchUrlPost){
 			      try{
 				   transaction.abort();
 				  }catch(e){}
-				 			updateFriends(fetchUrlPost, friendsId);
-		  		  syncFriends();
+				   updateFriends(fetchUrlPost, friendsId);
+		  		  
 				}				
 	  		}
 	}
@@ -111,6 +111,3 @@ const fetchUrlPost = function (base,action,param){
   return promesa;
   
 }
-
-
-init(updateFriends, fetchUrlPost);

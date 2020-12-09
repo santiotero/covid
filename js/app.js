@@ -16,9 +16,9 @@ function init(){
     let u = urlv.searchParams.get("source");
     const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
     
-    if( !mobMode ){
+    /*if( !mobMode ){
        window.location.href = 'error.html';   
-    }
+    }*/
 
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
@@ -75,7 +75,8 @@ function setTriggers(){
 
         Notification.requestPermission( function( permission ){
             if( permission === 'granted'){
-                $("#form_datos input[name=notification]").prop('checked', true);           
+                $("#form_datos input[name=notification]").prop('checked', true);
+                registerBackgroundSync();           
             }else{
                 $("#form_datos input[name=notification]").prop('checked', false);
             }
@@ -643,4 +644,15 @@ function showNotification(){
     }
   });
 
+}
+
+function registerBackgroundSync() {
+    if (!navigator.serviceWorker){
+        return console.error("Service Worker not supported")
+    }
+
+    navigator.serviceWorker.ready
+    .then(registration => registration.sync.register('syncCovid'))
+    .then(() => console.log("Registered background syncCovid"))
+    .catch(err => console.error("Error registering background sync", err))
 }
