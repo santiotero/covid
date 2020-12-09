@@ -648,7 +648,6 @@ function showNotification(){
 }
 
 function registerBackgroundSync() {
-
     if (!navigator.serviceWorker){
         return console.error("Service Worker not supported")
     }
@@ -657,5 +656,4 @@ function registerBackgroundSync() {
     .then(registration => registration.sync.register('syncCovid'))
     .then(() => console.log("Registered background syncCovid"))
     .catch(err => console.error("Error registering background sync", err))
-
 }

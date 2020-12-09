@@ -21,14 +21,11 @@ self.addEventListener("fetch", function(event){
 });
 
 self.addEventListener('sync', function(event) {
-	
-	console.log("syncCovid event", event);
-    
+	console.log("syncCovid event", event);    
     if (event.tag === 'syncCovid') {
         friendsId = [];
 		init(updateFriends, fetchUrlPost);
     }
-
 });
 
 
