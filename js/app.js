@@ -2,6 +2,7 @@ var user;
 var db;
 var currentOption;
 var registration;
+
 window.onload = function() {
     init();    
     setServiceWorker();    
@@ -16,9 +17,9 @@ function init(){
     let u = urlv.searchParams.get("source");
     const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
     
-    /*if( !mobMode ){
+    if( !mobMode ){
        window.location.href = 'error.html';   
-    }*/
+    }
 
     $('.ui.checkbox').checkbox();    
     optionMenu(0);
@@ -647,6 +648,7 @@ function showNotification(){
 }
 
 function registerBackgroundSync() {
+
     if (!navigator.serviceWorker){
         return console.error("Service Worker not supported")
     }
@@ -655,4 +657,5 @@ function registerBackgroundSync() {
     .then(registration => registration.sync.register('syncCovid'))
     .then(() => console.log("Registered background syncCovid"))
     .catch(err => console.error("Error registering background sync", err))
+
 }
