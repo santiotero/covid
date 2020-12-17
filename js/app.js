@@ -1,4 +1,4 @@
-/*  app v1.0  */
+/*  app v1.0.0  */
 var user;
 var db;
 var currentOption;
