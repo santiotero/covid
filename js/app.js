@@ -25,6 +25,7 @@ function init(){
     }
 
     $('.ui.checkbox').checkbox();    
+    updateFriendsInfo();
     optionMenu(0);
     syncFriends();
     
@@ -136,8 +137,7 @@ function optionMenu(num){
         break;
 
       case 5:
-        $('#contagiados').show();
-        updateFriendsInfo();
+        $('#contagiados').show();        
         loadContacts(true);
         break;
 
