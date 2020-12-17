@@ -1,4 +1,4 @@
-/*   Sw 1.0.0   */
+/*  Sw 1.0.0  */
 var db;
 var idb;
 var transaction;
