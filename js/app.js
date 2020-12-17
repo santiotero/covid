@@ -1,3 +1,4 @@
+/* app v1.0 */
 var user;
 var db;
 var currentOption;
