@@ -137,6 +137,7 @@ function optionMenu(num){
 
       case 5:
         $('#contagiados').show();
+        updateFriendsInfo();
         loadContacts(true);
         break;
 
@@ -566,7 +567,7 @@ function updateFriendsInfo(){
           }
         
       }).then( () => { 
-         showNotification(); 
+         //showNotification();
          syncFriends();
          optionMenu(currentOption);
       }); 

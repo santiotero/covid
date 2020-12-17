@@ -6,12 +6,11 @@ var objectStore;
 var request;
 var friendsId  = [];		
 var response;
-var title = 'Covid19 App Sw';
+var title = 'Covid19 App';
 var options = {
           lang: 'ES',
-          body: 'Hay nuevos contactos contagiados Sw',
-          icon: 'img/icons/logo-32.png',
-          image: 'img/icons/logo-32.png',
+          body: 'Hay nuevos contactos contagiados',
+          icon: 'img/icons/logo-32.png',          
           silent: false,
           requireInteraction: true
 };
