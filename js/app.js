@@ -1,4 +1,4 @@
-/*  app v1.0.0  */
+/*  app v1.0  */
 var user;
 var db;
 var currentOption;
@@ -25,8 +25,7 @@ function init(){
     }
 
     $('.ui.checkbox').checkbox();    
-    updateFriendsInfo();
-    optionMenu(0);
+    optionMenu(0);    
     syncFriends();
     
 }
@@ -113,8 +112,9 @@ function optionMenu(num){
     switch (num) {
       case 0:
         $('#initloading').show();
-        setTimeout(function(){
-          intialvalidation();            
+        setTimeout(async function(){
+          await intialvalidation();
+          updateFriendsInfo();            
         }, 2000);
         break;
 
@@ -146,6 +146,7 @@ function optionMenu(num){
     }
 
 }
+
 
 
 async function intialvalidation(){
