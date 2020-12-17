@@ -1,4 +1,4 @@
-/* app v1.0 */
+/*  app v1.0  */
 var user;
 var db;
 var currentOption;
@@ -16,7 +16,7 @@ window.onload = function() {
 function init(){
 
     const url_string = window.location.href;
-    const urlv = new URL(url_string);    
+    const urlv = new URL(url_string);
     let u = urlv.searchParams.get("source");
     const mobMode = (u === 'pwa' && (window.matchMedia('(display-mode: standalone)').matches ? true : false) );
     
