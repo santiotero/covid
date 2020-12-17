@@ -2,6 +2,8 @@ var user;
 var db;
 var currentOption;
 var registration;
+var subscriptionKey;
+var subscription;
 
 window.onload = function() {
     init();    
@@ -33,7 +35,9 @@ function setServiceWorker(){
          
     if(navigator.serviceWorker){
       try{
-       navigator.serviceWorker.register(urlSw);
+        navigator.serviceWorker.register(urlSw).then( reg =>{
+        registration = reg;        
+       }); 
       }catch(e){}      
     } 
 }
@@ -72,12 +76,13 @@ function setTriggers(){
 
   $("#form_datos input[name=notification]").change(function(){
 
-    if( !$("#form_datos input[name=covid]").prop('checked') ){
+
+    if( $("#form_datos input[name=notification]").prop('checked') ){
 
         Notification.requestPermission( function( permission ){
             if( permission === 'granted'){
                 $("#form_datos input[name=notification]").prop('checked', true);
-                registerBackgroundSync();           
+                registerSubscription();           
             }else{
                 $("#form_datos input[name=notification]").prop('checked', false);
             }
@@ -87,7 +92,7 @@ function setTriggers(){
   });
 
   $("#form_datos input[name=covid]").change(function(){
-    updateUser();
+    updateUser();    
   });
 
 }
@@ -570,7 +575,7 @@ function updateFriendsInfo(){
   });
 }
 
-function updateUserRomte(user){
+async function updateUserRomte(user){
 
   let userRequest = {
             "userPhoneNumber": user.phoneNumber,
@@ -581,8 +586,8 @@ function updateUserRomte(user){
             "userRegistryDate":null
   };
 
-  fetchUrlPost('users','update',userRequest);
-
+  await fetchUrlPost('users','update',userRequest);
+  fetchUrlPost('push','push',[]);
 }
 
 function syncFriends(){
@@ -647,13 +652,40 @@ function showNotification(){
 
 }
 
-function registerBackgroundSync() {
-    if (!navigator.serviceWorker){
-        return console.error("Service Worker not supported")
-    }
+function registerSubscription(){
 
-    navigator.serviceWorker.ready
-    .then(registration => registration.sync.register('syncCovid'))
-    .then(() => console.log("Registered background syncCovid"))
-    .catch(err => console.error("Error registering background sync", err))
+  fetch('https://arcovid.herokuapp.com/v1/push/key',{
+  
+                          method: 'POST',
+                          mode: 'cors',
+                          cache: 'no-cache',    
+                          headers: {
+                            'Content-Type': 'application/json'      
+                          },
+                          redirect: 'follow',
+                          referrerPolicy: 'no-referrer'                                       
+  })
+  .then( resKey => resKey.arrayBuffer())
+  .then( key => {
+
+          subscriptionKey = new Uint8Array(key);
+          registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: subscriptionKey
+          })
+          .then( subs => { 
+                fetch('https://arcovid.herokuapp.com/v1/push/subscribe',{                
+                       method: 'POST',
+                       body: JSON.stringify(subs),
+                       mode: 'cors',
+                       cache: 'no-cache',    
+                       headers: {
+                         'Content-Type': 'application/json'      
+                       },
+                       redirect: 'follow',
+                       referrerPolicy: 'no-referrer'
+                });
+          });        
+  });
+
 }

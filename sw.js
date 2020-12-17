@@ -1,3 +1,4 @@
+/* Sw 1 */
 var db;
 var idb;
 var transaction;
@@ -16,47 +17,6 @@ var options = {
 };
 var notify = false;
 
-self.addEventListener("fetch", function(event){
-	console.log("service worker fetch");
-});
-
-self.addEventListener('sync', function(event) {
-	console.log("syncCovid event", event);    
-    if (event.tag === 'syncCovid') {
-        friendsId = [];
-		init(updateFriends, fetchUrlPost);
-    }
-});
-
-
-function init(updateFriends, fetchUrlPost){
-
-	idb = indexedDB.open('covid_db');
-
-	idb.onsuccess = function(event) {
-
-			db = idb.result;
-			transaction = db.transaction(["friends"]);
-			objectStore = transaction.objectStore("friends");
-			
-			objectStore.openCursor().onsuccess = function(event) {
-				var cursor = event.target.result;	  	  					
-				if (cursor) {
-				  if( cursor.value.covidDate === null ){				  	
-				  	friendsId.push(cursor.key);		  	
-				  }				  
-				  cursor.continue();
-				}else{				  
-			      try{
-				   transaction.abort();
-				  }catch(e){}
-				   updateFriends(fetchUrlPost, friendsId);
-		  		  
-				}				
-	  		}
-	}
-
-}
 
 const updateFriends = function(fetchUrlPost, friendsId){
 	if(friendsId.length <= 0){		
@@ -72,7 +32,8 @@ const updateFriends = function(fetchUrlPost, friendsId){
 			  			}
 		  			});		  			
 		  			if(notify){		  			   
-		  			   self.registration.showNotification(title, options);		  			   
+		  			   self.registration.showNotification(title, options);
+		  			   console.log("service worker notify ok");			  			   
 		  			} 
 		  			notify = false;
 		  		}		  		
@@ -110,4 +71,44 @@ const fetchUrlPost = function (base,action,param){
 
   return promesa;
   
+}
+
+
+self.addEventListener("fetch", function(event){
+	console.log("service worker fetch");
+});
+
+self.addEventListener("push", function(event){
+	console.log("service worker push");	
+	initSync(updateFriends, fetchUrlPost);
+});
+
+
+function initSync(updateFriends, fetchUrlPost){
+
+	idb = indexedDB.open('covid_db');
+
+	idb.onsuccess = function(event) {
+
+			db = idb.result;
+			transaction = db.transaction(["friends"]);
+			objectStore = transaction.objectStore("friends");
+			
+			objectStore.openCursor().onsuccess = function(event) {
+				var cursor = event.target.result;	  	  					
+				if (cursor) {
+				  if( cursor.value.covidDate === null ){				  	
+				  	friendsId.push(cursor.key);		  	
+				  }				  
+				  cursor.continue();
+				}else{				  
+			      try{
+				   transaction.abort();
+				  }catch(e){}
+				   updateFriends(fetchUrlPost, friendsId);
+		  		  
+				}				
+	  		}
+	}
+
 }
