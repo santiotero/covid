@@ -83,7 +83,7 @@ self.addEventListener("push", function(event){
 });
 
 self.addEventListener('notificationclick', function(event) {
-  console.log('On notification click';  
+  console.log('On notification click');  
   event.notification.close();
 
   event.waitUntil(
